@@ -2,7 +2,7 @@
 // Para adicionar um produto, copie um objeto, mantenha um id único e use uma categoria existente.
 const BEESIDE_PRODUTOS = [
   {id:"roupa-01",nome:"Camiseta Masculina de Corrida Run Dry 500",marca:"Kiprun",categoria:"Roupas",subcategoria:"Camisetas",preco:99.99,precoOriginal:null,imagem:"assets/images/produto-indisponivel.webp",descricao:"Camiseta masculina desenvolvida para corrida e treinos intensos.",selo:"DESTAQUE",fonte:"Decathlon",urlFonte:"https://www.decathlon.com.br/camiseta-masculina-de-corrida-run-dry-500-branca-8861546-kiprun/p"},
-  {id:"roupa-02",nome:"Short Masculino de Treino 120 com Zíper",marca:"Domyos",categoria:"Roupas",subcategoria:"Shorts",preco:89.99,precoOriginal:null,imagem:"assets/images/produto-indisponivel.webp",descricao:"Short leve para treino, com bolsos práticos e fechamento em zíper.",selo:"MAIS VENDIDO",fonte:"Decathlon",urlFonte:"https://www.decathlon.com.br/short-masculino-com-ziper-para-treino-120-preto-8547823-domyos/p"},
+  {id:"roupa-02",nome:"Short Masculino de Treino",marca:"Domyos",categoria:"Roupas",subcategoria:"Shorts",preco:89.99,precoOriginal:null,imagem:"assets/images/produto-indisponivel.webp",descricao:"Short leve para treino, com bolsos práticos e fechamento em zíper.",selo:"MAIS VENDIDO",fonte:"Decathlon",urlFonte:"https://www.decathlon.com.br/short-masculino-com-ziper-para-treino-120-preto-8547823-domyos/p"},
   {id:"roupa-03",nome:"Camiseta Masculina de Corrida Dry 500",marca:"Kalenji",categoria:"Roupas",subcategoria:"Camisetas",preco:69.99,precoOriginal:89.99,imagem:"assets/images/produto-indisponivel.webp",descricao:"Camiseta leve e respirável indicada para corrida.",selo:"OFERTA",fonte:"Decathlon",urlFonte:"https://www.decathlon.com.br/camiseta-masculina-de-corrida-dry-500-vermelho-8950666-kalenji/p"},
   {id:"acessorio-01",nome:"Mochila Esportiva Essential 17 L",marca:"Decathlon",categoria:"Acessórios",subcategoria:"Mochilas",preco:99.99,precoOriginal:null,imagem:"assets/images/produto-indisponivel.webp",descricao:"Mochila esportiva compacta com compartimento separado para calçados.",selo:"MAIS VENDIDO",fonte:"Decathlon",urlFonte:"https://www.decathlon.com.br/mochila-de-desporto-com-compartimento-para-calcado-17l-preto-8873326-decathlon/p"},
   {id:"acessorio-02",nome:"Mochila de Trilha Arpenaz 100 20 L",marca:"Quechua",categoria:"Acessórios",subcategoria:"Mochilas",preco:129.99,precoOriginal:null,imagem:"assets/images/produto-indisponivel.webp",descricao:"Mochila de 20 litros indicada para caminhadas e uso cotidiano.",selo:"NOVIDADE",fonte:"Decathlon",urlFonte:"https://www.decathlon.com.br/mochila-de-trilha-20l-arpenaz-100-bege-8955893-quechua/p"},
@@ -14,15 +14,15 @@ const BEESIDE_PRODUTOS = [
 const PLACEHOLDER="assets/images/produto-indisponivel.png",moeda=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}),slug=c=>c.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 // As fotografias reais ficam em assets/images. Este mapa mantém um arquivo correspondente para cada produto.
 const BEESIDE_IMAGENS = {
-  "roupa-01":"assets/images/kiprun-run-dry-500-branca.webp",
-  "roupa-02":"assets/images/domyos-short-120-preto.webp",
-  "roupa-03":"assets/images/kalenji-dry-500-vermelha.webp",
-  "acessorio-01":"assets/images/mochila-essential-17l.jpg",
-  "acessorio-02":"assets/images/quechua-arpenaz-20l.jpg",
-  "acessorio-03":"assets/images/kipsta-bolsa-essential-20l.webp",
-  "suplemento-01":"assets/images/integralmedica-whey-900g.webp",
-  "suplemento-02":"assets/images/integralmedica-creatina-300g.webp",
-  "suplemento-03":"assets/images/integralmedica-protein-crisp.webp"
+  "roupa-01":"assets/images/C2.jpg",
+  "roupa-02":"assets/images/R1.jpg",
+  "roupa-03":"assets/images/C1.jpg",
+  "acessorio-01":"assets/images/Mochila.jpg",
+  "acessorio-02":"assets/images/M2.jpg",
+  "acessorio-03":"assets/images/M3.jpg",
+  "suplemento-01":"assets/images/S1.jpg",
+  "suplemento-02":"assets/images/S2.jpg",
+  "suplemento-03":"assets/images/S3.jpg"
 };
 BEESIDE_PRODUTOS.forEach(produto=>produto.imagem=BEESIDE_IMAGENS[produto.id]||PLACEHOLDER);
 const favoritos=()=>JSON.parse(localStorage.getItem("beeside_favorites")||"[]");
