@@ -76,7 +76,7 @@ if (formLogin) {
     botao.disabled = false;
 
     if (error) {
-      beesideMostrarFeedback(formLogin, "E-mail ou senha inválidos.", "erro");
+      beesideMostrarFeedback(formLogin, "Erro ao entrar: " + error.message, "erro");
       return;
     }
 
