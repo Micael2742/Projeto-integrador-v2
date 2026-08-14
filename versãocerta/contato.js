@@ -10,7 +10,7 @@ if (formContato) {
     const feedback = formContato.querySelector(".form-feedback");
     const botao = formContato.querySelector("button[type=submit]");
 
-    const mensagem = {
+    const dados = {
       nome: document.getElementById("pageContactName").value.trim(),
       email: document.getElementById("pageContactEmail").value.trim(),
       telefone: document.getElementById("pageContactPhone").value.trim(),
@@ -22,18 +22,49 @@ if (formContato) {
     feedback.textContent = "Enviando mensagem...";
     feedback.style.color = "#1c8a4c";
 
-    const { error } = await beeside.from("contact_messages").insert(mensagem);
+    try {
+      const resposta = await fetch("https://formspree.io/f/mwleqdpz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(dados),
+      });
 
-    botao.disabled = false;
+      botao.disabled = false;
 
-    if (error) {
-      feedback.textContent = "Não foi possível enviar sua mensagem. Tente novamente.";
+      if (!resposta.ok) {
+        feedback.textContent = "Não foi possível enviar sua mensagem. Tente novamente.";
+        feedback.style.color = "#c0392b";
+        return;
+      }
+
+      feedback.textContent = "Mensagem enviada! Nossa equipe vai te responder em breve.";
+      feedback.style.color = "#1c8a4c";
+      formContato.reset();
+      beesideMostrarAnimacaoContatoEnviado();
+    } catch (erro) {
+      botao.disabled = false;
+      feedback.textContent = "Não foi possível enviar sua mensagem. Verifique sua conexão.";
       feedback.style.color = "#c0392b";
-      return;
     }
-
-    feedback.textContent = "Mensagem enviada! Nossa equipe vai te responder em breve.";
-    feedback.style.color = "#1c8a4c";
-    formContato.reset();
   });
 }
+
+// ---------- Animação de "mensagem enviada" ----------
+function beesideMostrarAnimacaoContatoEnviado() {
+  const animacao = document.getElementById("contactSentAnimation");
+  if (!animacao) return;
+
+  animacao.classList.remove("is-complete");
+  animacao.classList.add("is-active");
+  // pequeno atraso pra reiniciar as animações de entrada do texto a cada envio
+  requestAnimationFrame(() => {
+    setTimeout(() => animacao.classList.add("is-complete"), 20);
+  });
+}
+
+document.getElementById("closeContactSentAnimation")?.addEventListener("click", () => {
+  document.getElementById("contactSentAnimation")?.classList.remove("is-active", "is-complete");
+});
