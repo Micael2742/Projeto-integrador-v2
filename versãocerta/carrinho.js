@@ -46,10 +46,15 @@ function beesideRenderizarCarrinho() {
 
 function beesideAtualizarResumo() {
   const cart = beesideGetCart();
-  const subtotal = cart.reduce((soma, item) => soma + item.price * item.quantity, 0);
+  const subtotal = cart.reduce(
+    (soma, item) => soma + item.price * item.quantity,
+    0,
+  );
 
-  document.getElementById("cartSubtotal").textContent = beesideFormatarPrecoCarrinho(subtotal);
-  document.getElementById("cartTotal").textContent = beesideFormatarPrecoCarrinho(subtotal);
+  document.getElementById("cartSubtotal").textContent =
+    beesideFormatarPrecoCarrinho(subtotal);
+  document.getElementById("cartTotal").textContent =
+    beesideFormatarPrecoCarrinho(subtotal);
 }
 
 function beesideConfigurarEventosCarrinho() {
@@ -110,7 +115,10 @@ async function beesideFinalizarCompra() {
     return;
   }
 
-  const subtotal = cart.reduce((soma, item) => soma + item.price * item.quantity, 0);
+  const subtotal = cart.reduce(
+    (soma, item) => soma + item.price * item.quantity,
+    0,
+  );
 
   const { data: pedido, error: erroPedido } = await beeside
     .from("orders")
@@ -124,7 +132,8 @@ async function beesideFinalizarCompra() {
     .single();
 
   if (erroPedido) {
-    feedback.textContent = "Não foi possível concluir a compra. Tente novamente.";
+    feedback.textContent =
+      "Não foi possível concluir a compra. Tente novamente.";
     feedback.style.color = "#c0392b";
     return;
   }
@@ -141,16 +150,35 @@ async function beesideFinalizarCompra() {
   localStorage.removeItem("beeside_cart");
   beesideUpdateCartCount();
 
-  document.getElementById("purchaseAnimation")?.classList.add("is-active");
+  beesideMostrarAnimacaoCompra();
+}
+
+// ---------- Animação de "compra concluída" ----------
+function beesideMostrarAnimacaoCompra() {
+  const animacao = document.getElementById("purchaseAnimation");
+  if (!animacao) return;
+
+  animacao.classList.remove("is-complete");
+  animacao.classList.add("is-active");
+  // pequeno atraso pra reiniciar as animações de entrada do texto a cada compra
+  requestAnimationFrame(() => {
+    setTimeout(() => animacao.classList.add("is-complete"), 20);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   beesideRenderizarCarrinho();
   beesideConfigurarEventosCarrinho();
 
-  document.querySelector(".js-cart-buy")?.addEventListener("click", beesideFinalizarCompra);
-  document.getElementById("closePurchaseAnimation")?.addEventListener("click", () => {
-    document.getElementById("purchaseAnimation")?.classList.remove("is-active");
-    beesideRenderizarCarrinho();
-  });
+  document
+    .querySelector(".js-cart-buy")
+    ?.addEventListener("click", beesideFinalizarCompra);
+  document
+    .getElementById("closePurchaseAnimation")
+    ?.addEventListener("click", () => {
+      document
+        .getElementById("purchaseAnimation")
+        ?.classList.remove("is-active", "is-complete");
+      beesideRenderizarCarrinho();
+    });
 });

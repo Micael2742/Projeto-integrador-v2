@@ -1,0 +1,189 @@
+/* ==========================================================================
+   BEESIDE — MINHA CONTA
+   Incluir depois de style.css
+   ========================================================================== */
+
+/* ---------- Cabeçalho da conta ---------- */
+.account-hero{
+  position:relative;
+  padding:70px 0 50px;
+  border-bottom:1px solid var(--c-line);
+  overflow:hidden;
+}
+.account-hero-inner{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  flex-wrap:wrap;
+  position:relative;
+}
+.account-avatar{
+  width:84px; height:84px; flex-shrink:0;
+  background:var(--c-yellow);
+  color:var(--c-yellow-ink);
+  font-family:var(--font-display);
+  font-size:26px;
+  display:flex; align-items:center; justify-content:center;
+  clip-path:polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+}
+.account-hero-text{ flex:1; min-width:220px; }
+.account-hero-text h1{
+  font-family:var(--font-display);
+  font-size:clamp(24px,3vw,34px);
+  text-transform:uppercase;
+  line-height:1.1;
+  margin:4px 0 6px;
+}
+.account-hero-text p{ color:var(--c-gray); font-size:14px; }
+
+.account-stats{ display:flex; gap:32px; margin-left:auto; }
+.account-stats > div{ display:flex; flex-direction:column; gap:4px; }
+.account-stats dt{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--c-gray-dim); }
+.account-stats dd{ font-family:var(--font-display); font-size:22px; color:var(--c-yellow); }
+
+/* ---------- Layout do painel ---------- */
+.account-shell{ padding:56px 0 100px; }
+.account-grid{ display:grid; grid-template-columns:220px 1fr; gap:44px; align-items:start; }
+.account-tab-input{ display:none; }
+
+.account-tabs{
+  position:sticky;
+  top:calc(var(--header-h) + 24px);
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+.account-tabs ul{
+  display:flex; flex-direction:column; gap:2px;
+  border:1px solid var(--c-line);
+  border-radius:4px;
+  overflow:hidden;
+}
+.account-tabs label{
+  display:block;
+  padding:14px 18px;
+  font-size:13px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+  color:var(--c-gray);
+  cursor:pointer;
+  border-left:2px solid transparent;
+  transition:background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.account-tabs label:hover{ background:var(--c-black-3); color:var(--c-white); }
+
+#tabVisao:checked ~ .account-tabs label[for="tabVisao"],
+#tabPedidos:checked ~ .account-tabs label[for="tabPedidos"],
+#tabDados:checked ~ .account-tabs label[for="tabDados"],
+#tabFavoritos:checked ~ .account-tabs label[for="tabFavoritos"]{
+  background:var(--c-black-3);
+  color:var(--c-yellow);
+  border-left-color:var(--c-yellow);
+}
+.account-logout{ width:100%; }
+
+.account-panel{ display:none; }
+#tabVisao:checked ~ .account-panels #panelVisao,
+#tabPedidos:checked ~ .account-panels #panelPedidos,
+#tabDados:checked ~ .account-panels #panelDados,
+#tabFavoritos:checked ~ .account-panels #panelFavoritos{
+  display:block;
+  animation:fadeInUp .45s var(--ease) both;
+}
+
+.account-panel-title{
+  font-family:var(--font-display);
+  font-size:clamp(20px,2.4vw,28px);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.account-panel-lead{ color:var(--c-gray); font-size:14px; margin-bottom:28px; }
+.account-subtitle{
+  font-size:13px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em;
+  color:var(--c-gray);
+  margin:32px 0 14px;
+}
+
+/* ---------- Visão geral ---------- */
+.account-overview-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:16px;
+  margin-bottom:8px;
+}
+.account-info-card{
+  background:var(--c-black-2);
+  border:1px solid var(--c-line);
+  border-radius:4px;
+  padding:18px 20px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.account-info-card span{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--c-gray-dim); }
+.account-info-card strong{ font-size:15px; font-weight:600; }
+
+/* ---------- Pedidos ---------- */
+.account-orders-list{ display:flex; flex-direction:column; gap:14px; }
+.account-order-card{
+  background:var(--c-black-2);
+  border:1px solid var(--c-line);
+  border-radius:4px;
+  padding:20px 22px;
+  display:grid; gap:6px;
+}
+.account-order-head{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.account-order-id{ font-family:var(--font-display); font-size:13px; letter-spacing:.02em; }
+.account-order-status{
+  font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em;
+  color:var(--c-yellow-ink);
+  background:var(--c-yellow);
+  padding:4px 10px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+.account-order-date{ font-size:12px; color:var(--c-gray-dim); }
+.account-order-items{ font-size:13px; color:var(--c-gray); }
+.account-order-total{ font-family:var(--font-display); font-size:18px; color:var(--c-yellow); margin-top:4px; }
+
+.account-empty{ color:var(--c-gray); font-size:14px; padding:20px 0; }
+.account-empty a{ color:var(--c-yellow); font-weight:600; }
+
+/* ---------- Meus dados ---------- */
+.account-form{ max-width:440px; display:flex; flex-direction:column; gap:18px; }
+.account-form .form-row{ display:flex; flex-direction:column; gap:6px; }
+.account-form label{ font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--c-gray); }
+.account-form input{
+  background:var(--c-black-3);
+  border:1px solid var(--c-line);
+  border-radius:3px;
+  padding:12px 14px;
+  color:var(--c-white);
+  font-size:14px;
+}
+.account-form input:focus{ outline:none; border-color:var(--c-yellow); }
+.account-form input:disabled{ color:var(--c-gray-dim); cursor:not-allowed; }
+.account-form .btn{ align-self:flex-start; }
+.account-form .form-feedback{ font-size:13px; min-height:18px; }
+
+/* ---------- Favoritos ---------- */
+.favorites-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px,1fr));
+  gap:20px;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width:860px){
+  .account-grid{ grid-template-columns:1fr; }
+  .account-tabs{ position:static; flex-direction:row; flex-wrap:wrap; gap:14px; }
+  .account-tabs ul{ flex-direction:row; flex:1; min-width:220px; }
+  .account-logout{ width:auto; }
+}
+@media (max-width:560px){
+  .account-hero-inner{ flex-direction:column; align-items:flex-start; }
+  .account-stats{ margin-left:0; }
+  .account-tabs ul{ flex-direction:column; }
+  .account-tabs label{ text-align:left; }
+}

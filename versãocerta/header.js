@@ -72,15 +72,9 @@ async function beesideAtualizarBotaoUsuario() {
       .maybeSingle();
 
     const primeiroNome = (perfil?.nome || session.user.email).split(" ")[0];
-    userBtn.setAttribute("href", "#");
+    // Logado: o botão agora leva para o painel da conta (não faz logout direto).
+    userBtn.setAttribute("href", "minha-conta.html");
     userBtn.querySelector(".user-btn-text").textContent = "Olá, " + primeiroNome;
-    userBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (confirm("Deseja sair da sua conta?")) {
-        await beeside.auth.signOut();
-        window.location.href = "index.html";
-      }
-    });
   } else {
     userBtn.setAttribute("href", "login.html");
     userBtn.querySelector(".user-btn-text").textContent = "Entre e cadastre";
